@@ -38,9 +38,10 @@ export default function Home() {
             onChange={(e) => setEmail(e.target.value)}
             className="w-full px-3 py-2 border rounded-md"
             // TODO: Добавьте aria-describedby="email-error" к полю формы
+            aria-describedby="email-error"
           />
           {error && (
-            <p className="text-red-500 text-sm mt-1">
+            <p id="email-error" aria-live="polite" className="text-red-500 text-sm mt-1">
               {error}
             </p>
           )}
