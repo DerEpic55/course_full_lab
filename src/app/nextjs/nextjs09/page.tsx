@@ -6,8 +6,7 @@ import { getUsers, getTasks } from "./data";
 
 export default async function Home() {
   // Последовательная загрузка — медленно!
-  const users = await getUsers();
-  const tasks = await getTasks();
+  const [users, tasks] = await Promise.all([getUsers(), getTasks()]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
