@@ -1,14 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [email, setEmail] = useState("");
+
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: Добавьте программную навигацию
     console.log("Email submitted:", email);
+
+    router.push("/nextjs/nextjs08/success");
   };
 
   return (
