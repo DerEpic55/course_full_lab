@@ -19,12 +19,17 @@ export default function Pagination({ totalPages }: PaginationProps) {
   // - Установите параметр "page" в значение pageNumber
   // - Используйте router.push() для навигации на новый URL
   const createPageURL = (pageNumber: number) => {
-    // Напишите код здесь
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", pageNumber.toString());
+  
+    router.push(`${pathname}?${params.toString()}`);
   };
 
   return (
     <div className="flex gap-2 mt-4">
       <button
+        disabled={currentPage <= 1}
+        onClick={() => createPageURL(currentPage - 1)}
         // TODO: Добавьте onClick для перехода на предыдущую страницу
         // Кнопка должна быть disabled на первой странице
         className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-300 disabled:cursor-not-allowed"
@@ -35,6 +40,8 @@ export default function Pagination({ totalPages }: PaginationProps) {
         Страница {currentPage} из {totalPages}
       </span>
       <button
+        disabled={currentPage >= totalPages}
+        onClick={() => createPageURL(currentPage + 1)}
         // TODO: Добавьте onClick для перехода на следующую страницу
         // Кнопка должна быть disabled на последней странице
         className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-300 disabled:cursor-not-allowed"
