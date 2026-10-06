@@ -1,10 +1,7 @@
-import type { RevenueData } from "./data";
+import { fetchRevenue } from "./data";
 
-type RevenueChartProps = {
-  data: RevenueData[];
-};
-
-export default function RevenueChart({ data }: RevenueChartProps) {
+export default async function RevenueChart(){
+  const data = await fetchRevenue();
   const maxRevenue = Math.max(...data.map((d) => d.revenue));
 
   return (
