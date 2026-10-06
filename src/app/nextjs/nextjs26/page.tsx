@@ -5,34 +5,68 @@ export default function Page() {
   return (
     <div>
       <h1>Создание инвойса</h1>
+      
       <form action={createInvoiceAction}>
+        
         <div>
-          <div>Клиент</div>
-          <div data-testid="customer_id">
+          <label htmlFor="customer_id">
+            Клиент
+          </label>
+          <select
+            id="customer_id"
+            name="customer_id"
+            data-testid="customer_id"
+            required
+          >
             <option value="">Выберите клиента</option>
             {customers.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.name}
               </option>
             ))}
-          </div>
+          </select>
         </div>
 
         <div>
-          <div>Сумма ($)</div>
-          <div data-testid="amount" />
+          <label htmlFor="amount">
+            Сумма ($)
+          </label>
+          <input
+            id="amount"
+            name="amount"
+            type="number"
+            step="0.01"
+            min="0.01"
+            data-testid="amount"
+            required
+            placeholder="0.00"
+          />
         </div>
 
         <div>
-          <div>Статус</div>
-          <div data-testid="status">
+          <label htmlFor="status">
+            Статус
+          </label>
+          <select
+            id="status"
+            name="status"
+            data-testid="status"
+            required
+          >
+            <option value="">Выберите статус</option>
             {statuses.map((s) => (
-              <div key={s}>{s}</div>
+              <option key={s} value={s}>
+                {s.charAt(0).toUpperCase() + s.slice(1)}
+              </option>
             ))}
-          </div>
+          </select>
         </div>
 
-        <button type="submit">Создать</button>
+        <button 
+          type="submit"
+        >
+          Создать
+        </button>
       </form>
     </div>
   );
