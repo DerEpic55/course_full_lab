@@ -1,4 +1,5 @@
 import { pgTable, serial, varchar } from "drizzle-orm/pg-core";
+import { eq } from "drizzle-orm";
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
@@ -6,5 +7,5 @@ export const users = pgTable("users", {
 });
 
 export function selectUserByEmail(db: any, email: string) {
-  // TO DO
+  return db.select().from(users).where(eq(users.email, email));
 }
