@@ -1,7 +1,8 @@
 // TODO: Сделайте компонент асинхронным и загрузите данные
+import { getUsers } from "./data";
 
-function Home() {
-  const users = ["User 1", "User 2", "User 3"];
+export default async function Home() {
+  const users = await getUsers();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
@@ -15,8 +16,8 @@ function Home() {
 
           <ul className="space-y-2">
             {users.map((user) => (
-              <li key={user} className="p-3 bg-gray-50 rounded">
-                {user}
+              <li key={user.id} className="p-3 bg-gray-50 rounded">
+                {user.name}
               </li>
             ))}
           </ul>
@@ -29,5 +30,3 @@ function Home() {
     </main>
   );
 }
-
-export default Home;
