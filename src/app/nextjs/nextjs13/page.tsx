@@ -1,8 +1,20 @@
 // TODO: Настройте динамический рендеринг для получения актуальных данных
+async function getData() {
+const res = await fetch("http://localhost:3000/api/nextjs12", { 
+    cache: "no-store" 
+  });
 
-function Home() {
+  if (!res.ok) {
+    throw new Error("Не удалось загрузить данные");
+  }
+
+  return res.json();
+}
+
+
+async function Home() {
   // TODO: Создайте асинхронную функцию getData() с fetch и { cache: 'no-store' }
-  const data = { message: "Loading...", timestamp: "Loading..." };
+  const data = await getData();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
