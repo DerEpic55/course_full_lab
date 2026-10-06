@@ -17,8 +17,10 @@ export default function Home() {
           </h2>
           
           {/* Заменяем обычный img на next/image */}
-          <img
+          <Image
             src="/images/nextjs01.webp"
+            width={500}
+            height={250}
             alt="Example"
             className="w-full h-64 object-cover rounded"
           />
