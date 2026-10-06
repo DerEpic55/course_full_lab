@@ -20,7 +20,9 @@ export default function Pagination({ totalPages }: PaginationProps) {
   // - Сохраните параметр "query" если он существует
   // - Используйте router.replace() для обновления URL
   const createPageURL = (pageNumber: number) => {
-    // Напишите код здесь
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", pageNumber.toString());
+    router.replace(`${pathname}?${params.toString()}`);
   };
 
   return (

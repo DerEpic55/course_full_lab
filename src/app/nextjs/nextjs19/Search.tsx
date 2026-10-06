@@ -19,7 +19,14 @@ export default function Search() {
   // - Всегда сбрасывайте страницу на 1 при изменении поиска
   // - Используйте router.replace() для обновления URL
   const updateURL = (newQuery: string) => {
-    // Напишите код здесь
+    const params = new URLSearchParams(searchParams.toString());
+    if (newQuery) {
+      params.set("query", newQuery);
+    } else {
+      params.delete("query"); 
+    }
+    params.set("page", "1");
+    router.replace(`${pathname}?${params.toString()}`);
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
