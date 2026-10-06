@@ -23,16 +23,27 @@ export async function createInvoiceAction(
   prevState: InvoiceState,
   formData: FormData
 ): Promise<InvoiceState> {
-  const validatedFields = InvoiceSchema.parse({
+  const validatedFields = InvoiceSchema.safeParse({
     customer_id: formData.get("customer_id"),
     amount: formData.get("amount"),
     status: formData.get("status"),
   });
 
+  if (!validatedFields.success) {
+    return {
+      success: false,
+      message: "Заполните обязательные поля формы.",
+      // Метод flatten().fieldErrors превращает дерево ошибок Zod в чистый объект с массивами строк
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  const { customer_id, amount, status } = validatedFields.data;
+
   createInvoice({
-    customer_id: validatedFields.customer_id,
-    amount: validatedFields.amount,
-    status: validatedFields.status,
+    customer_id,
+    amount,
+    status,
   });
 
   return {

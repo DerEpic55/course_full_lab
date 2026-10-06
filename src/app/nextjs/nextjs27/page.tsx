@@ -1,21 +1,28 @@
 "use client";
 
-import { createInvoiceAction } from "./actions";
+import { useActionState } from "react";
+import { createInvoiceAction, type InvoiceState  } from "./actions";
 
-function handleSubmit(formData: FormData) {
-  // TODO: Добавить useActionState и safeParse для валидации
-  const state = { success: false, message: "", errors: {} };
-  void createInvoiceAction(state, formData);
-}
+const initialState: InvoiceState = {
+  success: false,
+  message: "",
+  errors: {},
+};
 
 export default function Page() {
+const [state, formAction] = useActionState(createInvoiceAction, initialState);
+
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold mb-6">Создание инвойса</h1>
-
-      <form action={handleSubmit} className="space-y-4 max-w-md">
+      <h1>Создание инвойса</h1>
+      {state.success && state.message && (
+        <div data-testid="success-message">
+          {state.message}
+        </div>
+      )}
+      <form action={formAction}>
         <div>
-          <label htmlFor="customer_id" className="block text-sm font-medium">
+          <label htmlFor="customer_id">
             Клиент
           </label>
           <select
@@ -28,6 +35,11 @@ export default function Page() {
             <option value="customer_2">Bob Smith</option>
             <option value="customer_3">Carol White</option>
           </select>
+           {state.errors?.customer_id && (
+            <div data-testid="error-customer_id">
+              {state.errors.customer_id.join(", ")}
+            </div>
+          )}
         </div>
 
         <div>
@@ -40,6 +52,11 @@ export default function Page() {
             name="amount"
             className="mt-1 block w-full border rounded p-2"
           />
+          {state.errors?.amount && (
+            <div data-testid="error-amount">
+              {state.errors.amount.join(", ")}
+            </div>
+          )}
         </div>
 
         <div>
@@ -56,6 +73,11 @@ export default function Page() {
             <option value="paid">paid</option>
             <option value="void">void</option>
           </select>
+          {state.errors?.status && (
+            <div data-testid="error-status">
+              {state.errors.status.join(", ")}
+            </div>
+          )}
         </div>
 
         <button
