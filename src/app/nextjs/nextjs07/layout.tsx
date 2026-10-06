@@ -1,10 +1,15 @@
+"use client"
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Nextjs07Layout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
+  const pathname = usePathname();
   // TODO: Добавьте стилизацию для активной ссылки
   const navLinks = [
     { href: "/nextjs/nextjs07", label: "Home" },
@@ -23,15 +28,23 @@ export default function Nextjs07Layout({
                 <h1 className="text-xl font-bold">Next.js 07 Navigation</h1>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                {navLinks.map((link) => {
+                  const isActive = pathname === link.href;
+
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors ${
+                        isActive
+                          ? "border-indigo-500 text-gray-900" // Стили для активной
+                          : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" // Стили для неактивной
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </div>
