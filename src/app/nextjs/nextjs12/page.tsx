@@ -1,8 +1,20 @@
 // TODO: Добавьте кэширование для статического рендеринга
 
-function Home() {
+async function getData() {
+  const res = await fetch("http://localhost:3000/api/nextjs12", { 
+    cache: "force-cache" 
+  });
+
+  if (!res.ok) {
+    throw new Error("Не удалось загрузить данные");
+  }
+
+  return res.json();
+}
+
+async function Home() {
   // TODO: Замените на асинхронную функцию getData() с fetch и { cache: 'force-cache' }
-  const data = { message: "Loading..." };
+  const data = await getData();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
