@@ -17,6 +17,12 @@ export function selectGradesWithStudents(
   },
   eq: (left: unknown, right: unknown) => unknown,
 ) {
-  return db
-  // TODO: реализовать select с innerJoin
+  return db.
+        select().
+        from(gradesTable).
+        innerJoin(
+          studentsTable, 
+          eq(gradesTable.studentId, studentsTable.id)
+        );
+  
 }
