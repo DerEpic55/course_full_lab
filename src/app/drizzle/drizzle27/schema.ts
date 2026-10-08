@@ -1,3 +1,8 @@
+let cachedDb: unknown = null;
+
 export function getDb(createDb: () => unknown) {
-  // TODO: реализовать singleton
+  if (!cachedDb) {
+    cachedDb = createDb();
+  }
+  return cachedDb;
 }
