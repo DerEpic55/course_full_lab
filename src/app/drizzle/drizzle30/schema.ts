@@ -2,5 +2,11 @@ export async function loadStudents(
   load: () => Promise<unknown[] | null | undefined>,
   fallback: unknown[],
 ) {
-  // TODO: реализовать async loader с fallback
+  const loadList = await load();
+
+  if(!loadList || loadList.length === 0){
+    return fallback;
+  }
+
+  return loadList;
 }
