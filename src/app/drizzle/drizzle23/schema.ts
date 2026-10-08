@@ -25,5 +25,9 @@ export function selectAssignmentsOrderedByGradesCount(
 ) {
     const gradesCount = count(gradesTable);
 
-    // TODO: реализовать select с groupBy и orderBy по агрегату
+    return db.select({count: count(gradesTable)})
+              .from(assignmentsTable)
+              .innerJoin(gradesTable, eq(assignmentsTable.id, gradesTable.assignmentId))
+              .groupBy(assignmentsTable.id)
+              .orderBy(desc(gradesCount));
 }
