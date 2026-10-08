@@ -3,5 +3,8 @@ export function serverOnlyAction(
     run?: () => unknown;
   },
 ) {
-  // TODO: реализовать server-only поведение
+  if (!serverApi || typeof serverApi.run !== "function") {
+    throw new Error("Server-only API required");
+  }
+  return serverApi.run();
 }
