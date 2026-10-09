@@ -6,3 +6,12 @@ import { z } from "zod";
 // 2. Добавьте query-процедуру "greet"
 // 3. Процедура должна принимать input { name: string }
 // 4. Процедура должна возвращать { message: "Hello, <name>" }
+export const appRouter = router({
+    greet: publicProcedure.input(
+        z.object({
+            name: z.string()
+        })
+    ).query(({ input }) => ({
+        message: `Hello, ${input.name}`
+    }))
+});
