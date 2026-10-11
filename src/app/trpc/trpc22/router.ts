@@ -7,8 +7,12 @@ export const timingMiddleware = middleware(async ({ ctx, next }) => {
   // 3. Вычислить duration
   // 4. Вызвать ctx.logger?.info(...)
   // 5. Вернуть result
+  const start = Date.now();
+  const result = await next();
+  const duration = Date.now() - start;
+  (ctx as any).logger?.info(`${duration}ms`);
 
-  return next()
+  return result;
 })
 
 export const appRouter = router({
