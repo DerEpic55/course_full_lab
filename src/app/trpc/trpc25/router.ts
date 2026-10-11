@@ -8,7 +8,9 @@ export const adminProcedure = protectedProcedure.use(
     // если ctx.user?.role !== 'ADMIN'
     // выбросить TRPCError({ code: 'UNAUTHORIZED' })
     // иначе вернуть next()
-
+    if(ctx.user?.role !== 'ADMIN'){
+      throw new TRPCError({ code: 'UNAUTHORIZED'});
+    }
     return next()
   }
 )
