@@ -6,3 +6,13 @@ import { z } from "zod";
 // 2. Добавьте mutation "createUser"
 // 3. Используйте ctx.dataAccess.createUser
 // 4. Верните { id }
+
+export const appRouter = router({
+    createUser: publicProcedure.input(z.object({
+        name: z.string().min(1)
+    })).mutation(({ctx, input}) => {
+        const id = (ctx.dataAccess as any).createUser(input.name); 
+        return { id };
+    }
+    )
+});
