@@ -9,8 +9,15 @@ export const wrapResultMiddleware = middleware(async ({ ctx, next }) => {
   //      data: <оригинальный result.data>,
   //      requestId: ctx.requestId
   //    }
+  const result = await next();
 
-  return next()
+  return {
+    ...result,
+    data: {
+      data: (result as any).data,
+      requestId: ctx.requestId
+    }
+  }
 })
 
 export const appRouter = router({
