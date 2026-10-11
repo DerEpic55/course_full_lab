@@ -7,4 +7,10 @@ export function useUserModule() {
   // 3. получить utils
   // 4. вызвать invalidate
   // 5. вернуть объект
+  const users = trpc.user.getAll.useQuery();
+  const createUser = trpc.user.create.useMutation();
+  const utils = trpc.useUtils();
+  utils.user.getAll.invalidate();
+  return {users, createUser};
+  
 }
