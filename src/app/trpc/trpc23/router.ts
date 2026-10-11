@@ -6,8 +6,21 @@ export const auditMiddleware = middleware(async ({ ctx, path, next }) => {
   // 2. Если ctx.auditService существует —
   //    вызвать ctx.auditService.record(...)
   // 3. Вернуть результат
+  const result = await next();
+  
+  const auditService = (ctx as any).auditService;
 
-  return next()
+  if (auditService && typeof auditService.record === 'function') {
+    const outputData = result.ok ? result.data : result;
+    
+    await auditService.record({
+      path: path,          
+      result: outputData   
+    });
+  }
+  
+  return result;
+  
 })
 
 export const appRouter = router({
