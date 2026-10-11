@@ -13,7 +13,8 @@ const postRouter = router({});
  * в единый appRouter.
  */
 export const appRouter = router({
-  // TODO
+  user: userRouter,
+  post: postRouter
 });
 
 export type AppRouter = typeof appRouter;
