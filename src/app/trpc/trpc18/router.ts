@@ -22,8 +22,10 @@ const postRouter = router({
         title: z.string().min(1),
       })
     )
-    .mutation(({ input, ctx }) => {
-      // TODO
+    .mutation(async ({ input, ctx }) => {
+      const post = await (ctx.dataAccess as any).createPost(input.title);
+      const id = typeof post === 'string' ? post : (post?.id ?? post?._id);
+       return {id}
     }),
 
   getPostById: publicProcedure
@@ -32,8 +34,12 @@ const postRouter = router({
         id: z.string().min(1),
       })
     )
-    .query(({ input, ctx }) => {
-      // TODO
+    .query(async ({ input, ctx }) => {
+      const post = await (ctx.dataAccess as any).getPostById(input.id);
+      if(!post){
+        throw new TRPCError({code: 'NOT_FOUND'});
+      }
+        return post;
     }),
 });
 
