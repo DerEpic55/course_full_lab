@@ -6,4 +6,10 @@ export function useCreateUserWithInvalidate() {
   // 2. получить utils
   // 3. вызвать invalidate
   // 4. вернуть mutation
+  const utils = trpc.useUtils();
+
+  const mutation = trpc.user.create.useMutation();
+  utils.user.getAll.invalidate();
+
+  return mutation;
 }
