@@ -10,8 +10,10 @@ import { router, publicProcedure } from "../_core/trpc";
  *    { status: "ok", version }
  */
 export const appRouter = router({
-  health: publicProcedure.query(({ ctx }) => {
-    // TODO
+  health: publicProcedure.query(async ({ ctx }) => {
+    const hlth = await (ctx.dataAccess as any).getVersion();
+    const version = typeof hlth === 'string' ? hlth : (hlth?.id ?? hlth?._id);
+    return {status: "ok", version};
   }),
 });
 
