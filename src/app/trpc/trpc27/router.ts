@@ -26,8 +26,20 @@ export const appRouter = router({
       //    и заменить её на createNotFoundError('Item')
       //
       // 3. Если id === '1' — вернуть 'item-1'
+      const id = input.id;
+      try{
+        if(id === '1'){
+          return 'item-1';
+        }else{
+          throw new EntityNotFoundError('Item');
+        }
+      } catch (e) {
+        if(e instanceof EntityNotFoundError) {
+          throw createNotFoundError('Item');
+        }
+        throw e;
+      }
 
-      return 'not implemented'
     }),
 })
 
