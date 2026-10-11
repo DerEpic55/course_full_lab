@@ -9,7 +9,12 @@ export const requestIdMiddleware = middleware(async (opts) => {
   //      requestId: 'req-123'
   //    }
 
-  return opts.next()
+  return opts.next({
+    ctx: {
+      ...opts.ctx,
+      requestId: 'req-123'
+    }
+  })
 })
 
 export const appRouter = router({
@@ -19,7 +24,7 @@ export const appRouter = router({
       // TODO:
       // вернуть строку: `request:${ctx.requestId}`
 
-      return 'not implemented'
+      return `request:${ctx.requestId}`
     }),
 })
 
