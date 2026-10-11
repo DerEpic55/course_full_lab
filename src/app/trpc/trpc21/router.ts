@@ -5,7 +5,10 @@ export const appRouter = router({
   getRequestId: publicProcedure.query(({ ctx }) => {
     // TODO: вернуть ctx.requestId
     // если отсутствует — выбросить TRPCError с code INTERNAL_SERVER_ERROR
-
+    if(ctx.requestId){
+      return ctx.requestId;
+    }
+    throw new TRPCError({code: "INTERNAL_SERVER_ERROR"});
     throw new Error('Not implemented')
   }),
 })
