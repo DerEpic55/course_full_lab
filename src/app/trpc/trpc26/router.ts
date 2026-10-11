@@ -19,8 +19,10 @@ export const appRouter = router({
       // если input.id !== '1'
       // выбросить createNotFoundError('Item')
       // иначе вернуть 'item-1'
-
-      return 'not implemented'
+      if(input.id !== '1'){
+        throw createNotFoundError('Item');
+      }
+      return 'item-1'
     }),
 })
 
