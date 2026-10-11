@@ -24,7 +24,11 @@ const userRouter = router({
       })
     )
     .query(({ input, ctx }) => {
-      // TODO
+      const user = (ctx.dataAccess as any).getUserById(input.id);
+      if(user !== null){
+        return user;
+      }
+      throw new TRPCError({ code: "NOT_FOUND" });
     }),
 });
 
