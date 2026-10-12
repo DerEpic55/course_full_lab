@@ -11,5 +11,8 @@ export type Context = {
 
 export function currentUserQuery(ctx: Context): User {
   // TODO: реализовать корректную проверку
+  if (!ctx.user) {
+    throw new UnauthorizedError();
+  }
   return ctx.user as User
 }
