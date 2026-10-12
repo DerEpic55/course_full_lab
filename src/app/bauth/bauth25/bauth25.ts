@@ -8,10 +8,10 @@ export function refreshSession(
   ttlMs: number,
   clock: () => number
 ): Session {
-  const now = clock()
-
+  const now = clock();
+  const expiration = now + ttlMs;
   return {
     ...session,
-    expiresAt: session.expiresAt, // TODO: реализовать sliding expiration
+    expiresAt: expiration, // TODO: реализовать sliding expiration
   }
 }
