@@ -18,4 +18,9 @@ export async function protectedProcedure<T>(
   handler: () => Promise<T>
 ): Promise<T> {
   // TODO: реализовать проверку авторизации
+  if(!ctx.user){
+      throw new UnauthorizedError();
+  }
+
+  return handler();
 }
