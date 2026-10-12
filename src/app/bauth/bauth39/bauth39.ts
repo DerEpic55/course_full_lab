@@ -15,9 +15,5 @@ export function updateEmailRouter(
     throw new UnauthorizedError()
   }
 
-  if (!newEmail.includes('@')) {
-    throw new Error('Invalid email') // TODO: убрать бизнес-логику из router
-  }
-
   return accessUpdate(user.id, newEmail)
 }
