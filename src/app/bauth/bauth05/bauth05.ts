@@ -20,4 +20,8 @@ export async function loginUser(
   password: string
 ) {
   // TODO: вызвать login через authService
+  return await authService.login({
+    email: email,
+    password: password
+  });
 }
