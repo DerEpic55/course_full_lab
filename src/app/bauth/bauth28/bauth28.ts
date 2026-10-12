@@ -9,11 +9,16 @@ export type User = {
 }
 
 export function routeGuard(session: Session | null): true {
-  // TODO: реализовать проверку
+  if (!session) {
+    throw new UnauthorizedError();
+  }
   return true
 }
 
 export function procedureGuard(user: User | null): true {
   // TODO: реализовать проверку
+  if (!user) {
+    throw new UnauthorizedError();
+  }
   return true
 }
