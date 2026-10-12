@@ -16,4 +16,12 @@ export async function updateProfileAccess<T>(
   operation: () => Promise<T>
 ): Promise<T> {
   // TODO: реализовать ownership в access-layer
+  if (!currentUserId) {
+    throw new UnauthorizedError();
+  }
+  if (currentUserId !== ownerId) {
+    throw new ForbiddenError();
+  }
+
+  return operation();
 }
