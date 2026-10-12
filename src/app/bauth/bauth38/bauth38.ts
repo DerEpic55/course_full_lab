@@ -14,6 +14,13 @@ export function uiOnlyDelete(
 ): string {
   // ❗ Анти-паттерн:
   // Предполагается, что проверка роли уже выполнена в UI
+  if (!user) {
+    throw new UnauthorizedError();
+  }
 
+  if (user.role !== 'ADMIN') {
+    throw new ForbiddenError();
+  }
+  
   return deleteFromDb() // TODO: реализовать корректную server-side проверку
 }
