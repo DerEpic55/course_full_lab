@@ -15,4 +15,9 @@ export class UnauthorizedError extends Error {
 
 export function getProfile(ctx: Context): string {
   // TODO: реализовать DI-гарантию
+    if (!ctx.user?.id) {
+        throw new UnauthorizedError();
+    }
+
+    return ctx.user?.id;
 }
