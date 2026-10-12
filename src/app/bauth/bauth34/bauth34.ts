@@ -12,5 +12,8 @@ export function renderForRole(
   content: string
 ): string | null {
   // TODO: реализовать role-based отображение
+  if (!user || (user.role !== requiredRole)) {
+    return null;
+  }
   return content
 }
