@@ -13,4 +13,10 @@ export function createAuthService(
   db: Database
 ) {
   // TODO: инициализировать Better Auth с использованием db
+  const auth = betterAuth({
+    database: db,
+    secret: config.secret
+  });
+
+  return auth;
 }
