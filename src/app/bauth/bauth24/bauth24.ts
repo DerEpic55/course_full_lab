@@ -9,9 +9,9 @@ export function createSession(
   clock: () => number
 ): Session {
   const now = clock()
-
+  const expiration = now + ttlMs;
   return {
     userId,
-    expiresAt: now, // TODO: вычислить корректное абсолютное expiration
+    expiresAt: expiration, // TODO: вычислить корректное абсолютное expiration
   }
 }
