@@ -11,4 +11,8 @@ export function validateSession(
   clock: Clock
 ): Session | null {
   // TODO: реализовать проверку expiration
+  if (session?.expiresAt <= clock()) {
+    return null;
+  }
+  return session;
 }
