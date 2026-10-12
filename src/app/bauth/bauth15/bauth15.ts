@@ -42,4 +42,5 @@ export async function deleteUser<T>(
   handler: () => Promise<T>
 ): Promise<T> {
   // TODO: использовать adminProcedure
+  return adminProcedure(ctx, handler);
 }
