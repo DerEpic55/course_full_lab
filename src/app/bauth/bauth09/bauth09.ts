@@ -7,4 +7,5 @@ export async function logoutUser(
   sessionId: string
 ) {
   // TODO: вызвать инвалидирование session
+  await authService.invalidateSession(sessionId);
 }
