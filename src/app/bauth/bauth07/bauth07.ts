@@ -18,4 +18,6 @@ export async function createContext(
   request: unknown
 ) {
   // TODO: получить session и вернуть { user }
+  const session =  await authService.getSession(request);
+  return session ?? { user : null};
 }
