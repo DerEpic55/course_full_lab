@@ -6,4 +6,9 @@ export type AuthConfig = {
 
 export function createAuthService(config: AuthConfig) {
   // TODO: инициализировать Better Auth
+  const auth = betterAuth({
+      secret: config.secret
+  });
+
+  return auth;
 }
