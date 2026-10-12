@@ -15,4 +15,11 @@ export function checkAccess(
   hasPermission: boolean
 ): true {
   // TODO: реализовать корректную семантику ошибок
+  if (!userId) {
+      throw new UnauthorizedError();
+  }
+  if (hasPermission === false) {
+      throw new ForbiddenError();
+  }
+  return true;
 }
